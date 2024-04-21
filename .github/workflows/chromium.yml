@@ -8,42 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check disk space
-        run: df -h
-
-      - name: Remove extra software
-        run: |
-          sudo apt-get purge -y gfortran-9 gfortran-10
-          sudo apt-get purge -y clang lldb lld
-          sudo apt-get purge -y firefox
-          sudo rm -rf /usr/local/share/chromium
-          sudo rm -rf /usr/share/swift
-          sudo apt-get purge -y moby-engine moby-cli moby-buildx moby-compose
-          sudo apt-get purge -y podman buildah skopeo
-          sudo rm -rf /usr/local/bin/rebar3
-          sudo rm -rf /usr/local/bin/phantomjs
-          sudo rm -rf /usr/local/bin/aliyun
-          sudo apt-get purge -y ansible
-          sudo rm -rf /usr/local/bin/aws
-          sudo rm -rf /usr/local/bin/azcopy
-          sudo rm -rf /usr/local/bin/bicep
-          sudo apt-get purge -y google-cloud-sdk
-          sudo apt-get purge -y hhvm
-          sudo rm -rf /home/linuxbrew
-          sudo rm -rf /usr/lib/jvm
-          sudo apt-get purge -y ant ant-optional
-          sudo rm -rf /usr/share/gradle
-          sudo rm -rf /usr/local/julia*
-          sudo rm -rf /usr/share/kotlinc
-          sudo rm -rf /usr/local/bin/kind
-          sudo rm -rf /usr/local/bin/kubectl
-          sudo rm -rf /usr/local/bin/lein
-          sudo apt-get purge -y mercurial
-          sudo apt-get purge -y mono-complete nuget
-
-      - name: Check disk space
-        run: df -h
-
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
@@ -52,8 +16,13 @@ jobs:
           remove-dotnet: 'true'
           remove-android: 'true'
           remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
 
-      - uses: actions/checkout@v2
+      - name: Check disk space
+        run: df -h
+
+      - uses: actions/checkout@v4
 
       - name: Fetch depot_tools
         run: git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
