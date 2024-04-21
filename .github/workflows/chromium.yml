@@ -14,15 +14,12 @@ jobs:
       - name: Remove extra software
         run: |
           sudo apt-get purge -y gfortran-9 gfortran-10
-          sudo apt-get purge -y clang-10 lldb-10 lld-10
-          sudo apt-get purge -y clang-12 lldb-12 lld-12
+          sudo apt-get purge -y clang lldb lld
           sudo apt-get purge -y firefox
           sudo rm -rf /usr/local/share/chromium
-          sudo apt-get purge -y mongodb-org
           sudo rm -rf /usr/share/swift
           sudo apt-get purge -y moby-engine moby-cli moby-buildx moby-compose
           sudo apt-get purge -y podman buildah skopeo
-          sudo apt-get purge -y esl-erlang
           sudo rm -rf /usr/local/bin/rebar3
           sudo rm -rf /usr/local/bin/phantomjs
           sudo rm -rf /usr/local/bin/aliyun
@@ -43,9 +40,6 @@ jobs:
           sudo rm -rf /usr/local/bin/lein
           sudo apt-get purge -y mercurial
           sudo apt-get purge -y mono-complete nuget
-          sudo apt-add-repository ppa:ondrej/php -y
-          sudo apt-get update
-          sudo apt-get install libapache2-mod-php7.4 php7.4-cgi
 
       - name: Check disk space
         run: df -h
@@ -111,4 +105,3 @@ jobs:
         with:
           name: out/Default
           path: chromium/src/out/Default
-
